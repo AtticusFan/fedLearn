@@ -1,0 +1,43 @@
+Learning_rate: 0.01
+Learning_rate: 0.01
+Learning_rate: 0.01
+Round: 1
+Accuracy: 12.84%
+Loss: 2.4148
+
+Round: 2
+Accuracy: 12.96%
+Loss: 2.3609
+
+Round: 3
+Accuracy: 12.70%
+Loss: 2.3412
+
+Round: 4
+Accuracy: 12.80%
+Loss: 2.3294
+
+Round: 5
+Accuracy: 12.77%
+Loss: 2.3219
+
+Round: 6
+Accuracy: 12.49%
+Loss: 2.3181
+
+Round: 7
+Accuracy: 12.29%
+Loss: 2.3153
+
+Round: 8
+Accuracy: 12.29%
+Loss: 2.3128
+
+Round: 9
+Accuracy: 12.20%
+Loss: 2.3111
+
+Round: 10
+Accuracy: 12.05%
+Loss: 2.3097
+

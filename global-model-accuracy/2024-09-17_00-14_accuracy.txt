@@ -1,0 +1,81 @@
+Learning_rate: 0.01
+Round: 1
+Accuracy: 8.63%
+Loss: 2.4341
+
+Round: 2
+Accuracy: 8.59%
+Loss: 2.3766
+
+Round: 3
+Accuracy: 8.66%
+Loss: 2.3507
+
+Round: 4
+Accuracy: 8.81%
+Loss: 2.3371
+
+Round: 5
+Accuracy: 9.11%
+Loss: 2.3288
+
+Round: 6
+Accuracy: 9.23%
+Loss: 2.3229
+
+Round: 7
+Accuracy: 9.42%
+Loss: 2.3186
+
+Round: 8
+Accuracy: 9.29%
+Loss: 2.3152
+
+Round: 9
+Accuracy: 9.19%
+Loss: 2.3131
+
+Round: 10
+Accuracy: 9.45%
+Loss: 2.3118
+
+Round: 11
+Accuracy: 9.38%
+Loss: 2.3104
+
+Round: 12
+Accuracy: 9.27%
+Loss: 2.3097
+
+Round: 13
+Accuracy: 9.36%
+Loss: 2.3083
+
+Round: 14
+Accuracy: 9.83%
+Loss: 2.3077
+
+Round: 15
+Accuracy: 9.99%
+Loss: 2.3071
+
+Round: 16
+Accuracy: 10.37%
+Loss: 2.3064
+
+Round: 17
+Accuracy: 10.69%
+Loss: 2.3059
+
+Round: 18
+Accuracy: 10.73%
+Loss: 2.3058
+
+Round: 19
+Accuracy: 10.58%
+Loss: 2.3056
+
+Round: 20
+Accuracy: 10.22%
+Loss: 2.3054
+

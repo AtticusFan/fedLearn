@@ -1,0 +1,83 @@
+Total_clients: 10
+Communication rounds: 20
+
+Round: 1
+Accuracy: 23.97%
+Loss: 2.1289
+
+Round: 2
+Accuracy: 47.20%
+Loss: 1.8049
+
+Round: 3
+Accuracy: 59.56%
+Loss: 1.5466
+
+Round: 4
+Accuracy: 67.94%
+Loss: 1.3351
+
+Round: 5
+Accuracy: 72.50%
+Loss: 1.1742
+
+Round: 6
+Accuracy: 75.50%
+Loss: 1.0596
+
+Round: 7
+Accuracy: 77.50%
+Loss: 0.9720
+
+Round: 8
+Accuracy: 79.26%
+Loss: 0.8902
+
+Round: 9
+Accuracy: 80.62%
+Loss: 0.8215
+
+Round: 10
+Accuracy: 82.15%
+Loss: 0.7568
+
+Round: 11
+Accuracy: 83.06%
+Loss: 0.7086
+
+Round: 12
+Accuracy: 84.13%
+Loss: 0.6621
+
+Round: 13
+Accuracy: 84.94%
+Loss: 0.6248
+
+Round: 14
+Accuracy: 85.60%
+Loss: 0.5880
+
+Round: 15
+Accuracy: 86.52%
+Loss: 0.5653
+
+Round: 16
+Accuracy: 86.78%
+Loss: 0.5422
+
+Round: 17
+Accuracy: 87.26%
+Loss: 0.5159
+
+Round: 18
+Accuracy: 87.76%
+Loss: 0.5036
+
+Round: 19
+Accuracy: 88.28%
+Loss: 0.4717
+
+Round: 20
+Accuracy: 88.68%
+Loss: 0.4627
+

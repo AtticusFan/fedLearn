@@ -1,0 +1,43 @@
+Total_clients: 10
+Communication rounds: 10
+
+Round: 1
+Accuracy: 31.41%
+Loss: 2.0788
+
+Round: 2
+Accuracy: 48.26%
+Loss: 1.7829
+
+Round: 3
+Accuracy: 58.02%
+Loss: 1.5521
+
+Round: 4
+Accuracy: 64.74%
+Loss: 1.3851
+
+Round: 5
+Accuracy: 69.28%
+Loss: 1.2444
+
+Round: 6
+Accuracy: 73.34%
+Loss: 1.1274
+
+Round: 7
+Accuracy: 76.41%
+Loss: 1.0145
+
+Round: 8
+Accuracy: 78.67%
+Loss: 0.9501
+
+Round: 9
+Accuracy: 80.68%
+Loss: 0.8836
+
+Round: 10
+Accuracy: 82.23%
+Loss: 0.8461
+
