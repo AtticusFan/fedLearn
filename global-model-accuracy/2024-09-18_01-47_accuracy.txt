@@ -1,3 +1,0 @@
-Total_clients: 10
-Communication rounds: 10
-
