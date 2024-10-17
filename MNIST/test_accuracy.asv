@@ -9,30 +9,26 @@ file_names = {
     '/home/isirl/anaconda3/bin/MNIST-DNN/0.1_n160_k5_SGD_accuracy.csv',  % (7) SGD, N=160, K=5
     '/home/isirl/anaconda3/bin/MNIST-DNN/0.1_n160_k5_Adam_accuracy.csv'   % (8) Adam, N=160, K=5
     %}
-    %'/home/isirl/master/fedLearn/0.1_n40_k1_SGD_accuracy.csv',
-    %'/home/isirl/master/fedLearn/0.1_n40_k1_Adam_accuracy.csv',
-    %'/home/isirl/master/fedLearn/0.1_n20_k5_SGD_accuracy.csv',
+    '/home/isirl/master/fedLearn/0.1_n20_k5_SGD_accuracy.csv',
     '/home/isirl/master/fedLearn/0.1_n40_k5_SGD_accuracy.csv',
-    %'/home/isirl/master/fedLearn/0.1_n20_k10_SGD_accuracy.csv',
+    '/home/isirl/master/fedLearn/0.1_n20_k10_SGD_accuracy.csv',
     '/home/isirl/master/fedLearn/0.1_n40_k10_SGD_accuracy.csv',
-    %'/home/isirl/master/fedLearn/0.1_n20_k5_Adam_accuracy.csv',
-    %'/home/isirl/master/fedLearn/0.1_n40_k5_Adam_accuracy.csv',
-    %'/home/isirl/master/fedLearn/0.1_n20_k10_Adam_accuracy.csv',
-    %'/home/isirl/master/fedLearn/0.1_n40_k10_Adam_accuracy.csv',
+    '/home/isirl/master/fedLearn/0.1_n40_k10_SGD_accuracy.csv',
+    '/home/isirl/master/fedLearn/0.1_n40_k10_SGD_accuracy.csv',
+    '/home/isirl/master/fedLearn/0.1_n40_k10_SGD_accuracy.csv',
+    '/home/isirl/master/fedLearn/0.1_n40_k10_SGD_accuracy.csv',
 
 };
 
 labels = {
-    'SGD, N=40, k=1', 
-    'Adam, N=40, k=1', 
-    'SGD, N=20, k=5',
-    'SGD, N=40, k=5',
-    'SGD, N=20, k=10',
-    'SGD, N=40, k=10',
-    'Adam, N=20, k=5',
-    'Adam, N=40, k=5',
-    'Adam, N=20, k=10',
-    'Adam, N=40, k=10',
+    'SGD, N=1', 
+    'Adam, N=1', 
+    'SGD, N=40, K=5', 
+    'Adam, N=40, K=5', 
+    'SGD, N=80, K=5', 
+    'Adam, N=80, K=5', 
+    'SGD, N=160, K=5', 
+    'Adam, N=160, K=5'
 };
 
 % 创建图形

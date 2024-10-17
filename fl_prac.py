@@ -22,7 +22,7 @@ def set_random_seed(seed=42):
     tc.backends.cudnn.deterministic = True
     tc.backends.cudnn.benchmark = False
 
-# set_random_seed(42)
+set_random_seed(42)
 
 # Load MNIST dataset
 train = MNIST("", download=True, train=True)
@@ -69,9 +69,10 @@ def dirichlet_split_noniid(train_labels, alpha, n_clients):
     client_idcs = [np.concatenate(idcs) for idcs in client_idcs]
     return client_idcs
 
-n_clients = 100
+n_clients = 40
 alpha = 0.1
 opt ="SGD"
+#opt = 'Adam'
 client_idcs = dirichlet_split_noniid(y_train.cpu().numpy(), alpha, n_clients)
 
 # Calculate class distribution for each client
@@ -149,11 +150,11 @@ for idcs in client_idcs:
 # Function to train a client model
 def train_one_client(client_dataset, model):
     criterion = nn.CrossEntropyLoss()
-    if(opt == "SGD" ):
+    if(opt == "Adam" ):
         optimizer = optim.Adam(model.parameters(), lr=1e-4, weight_decay=3e-6)
     else:
-        optimizer = optim.SGD(model.parameters(), lr=0.01, weight_decay=3e-6)
-        #optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9, weight_decay=3e-6)
+        # optimizer = optim.SGD(model.parameters(), lr=0.01, weight_decay=3e-6)
+        optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9, weight_decay=3e-6)
     scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.5)
     
     train_loader = DataLoader(client_dataset, batch_size=64, shuffle=True)
@@ -164,7 +165,7 @@ def train_one_client(client_dataset, model):
         correct = (predicted == targets).sum().item()
         return correct / targets.size(0)
 
-    epochs = 10
+    epochs = 6
     losses = []
     train_accuracies = []
     val_accuracies = []
@@ -193,42 +194,62 @@ def train_one_client(client_dataset, model):
     return model, losses
 
 # Federated learning rounds
+
 n_rounds = 100
-k = 50  # Number of selected clients per round
+k = 10  # Number of selected clients per round
+n_iterations = 5  # Number of iterations per round
 global_model = Net().cuda()
-
+clients_models = []
 accuracies = []
-iterations = 5  # Number of iterations
-n_clients = len(clients_datasets)
 
-for iteration in range(iterations):
-    seed = iteration  # 每次 iteration 使用不同的隨機種子
-    tc.manual_seed(seed)  # 設置隨機種子，確保可重現性
-    random.seed(seed)  # 設定 Python 的隨機種子
+for round_num in range(n_rounds):
+    print(f"\nRound {round_num + 1}")
 
-    print(f"Starting iteration {iteration + 1} with seed {seed}")
-    
-    for round_num in range(n_rounds):
-        print(f"\nRound {round_num + 1}")
+    round_accuracies = []
 
+    for iteration in range(n_iterations):
+        print(f"Iteration {iteration + 1} in Round {round_num + 1}")
+        
         clients_models = []
         clients_losses = []
 
-        # 選擇 K 個 client
         selected_clients = random.sample(range(n_clients), k)
         selected_clients_data_sizes = [len(clients_datasets[i]) for i in selected_clients]
 
-        # 訓練每個選擇的 client
+        # 在這裡對每個 client 訓練多次
+        iteration_accuracies = []
         for i in selected_clients:
-            print(f"\nTraining Model for Client {i+1}")
+            print(f"\nTraining Model for Client {i + 1}")
             client_dataset = clients_datasets[i]
+            
+            # 重新初始化 client model 並載入 global model 的權重
             local_model = Net().cuda()
             local_model.load_state_dict(global_model.state_dict())
+            
+            # 執行多次訓練
             model, losses = train_one_client(client_dataset, local_model)
             clients_models.append(model)
             clients_losses.append(losses)
+            
+            # 計算這次 iteration 的準確率
+            correct = 0
+            total = 0
+            test_loader = DataLoader(TensorDataset(X_test, y_test), batch_size=32)
+            with tc.no_grad():
+                for inputs, targets in test_loader:
+                    outputs = model(inputs)
+                    _, predicted = tc.max(outputs, 1)
+                    total += targets.size(0)
+                    correct += (predicted == targets).sum().item()
+            accuracy = 100 * correct / total
+            iteration_accuracies.append(accuracy)
 
-        # 使用 Federated Averaging 聚合模型
+        # 計算多次迭代後的平均準確率
+        avg_accuracy = sum(iteration_accuracies) / len(iteration_accuracies)
+        round_accuracies.append(avg_accuracy)
+        print(f'Average Client Model Accuracy in Round {round_num + 1}: {avg_accuracy:.2f}%')
+
+        # Federated Averaging：對選定的 client 進行模型聚合
         global_state_dict = global_model.state_dict()
         total_data_size = sum(selected_clients_data_sizes)
 
@@ -240,22 +261,20 @@ for iteration in range(iterations):
 
         global_model.load_state_dict(global_state_dict)
 
-        # 在測試集上評估全局模型
-        test_loader = DataLoader(TensorDataset(X_test, y_test), batch_size=32)
-        correct = 0
-        total = 0
-        with tc.no_grad():
-            for inputs, targets in test_loader:
-                outputs = global_model(inputs)
-                _, predicted = tc.max(outputs, 1)
-                total += targets.size(0)
-                correct += (predicted == targets).sum().item()
+    # 評估 global model 的準確率
+    test_loader = DataLoader(TensorDataset(X_test, y_test), batch_size=32)
+    correct = 0
+    total = 0
+    with tc.no_grad():
+        for inputs, targets in test_loader:
+            outputs = global_model(inputs)
+            _, predicted = tc.max(outputs, 1)
+            total += targets.size(0)
+            correct += (predicted == targets).sum().item()
+    global_accuracy = 100 * correct / total
+    accuracies.append(global_accuracy)
+    print(f'Global Model Accuracy after Round {round_num + 1}: {global_accuracy:.2f}%')
 
-        accuracy = 100 * correct / total
-        accuracies.append(accuracy)
-        print(f'Global Model Accuracy: {accuracy:.2f}%')
-
-    print(f"Iteration {iteration + 1} completed")
 
 # Save accuracies to a CSV file
 current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
